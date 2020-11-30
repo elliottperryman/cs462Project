@@ -12,13 +12,13 @@ def main():
     from time import time
 
     from dask.distributed import Client
-    client = Client(scheduler_file='scheduler.json', dashboard_address=':0')
+    client = Client(n_workers=int(argv[1]), threads_per_worker=2, dashboard_address=None, scheduler_port=0)
     print(client)
 
 
     # In[6]:
     times = []
-    for exp in range(1,30):
+    for exp in range(1,31):
         N = 2**exp
         t1 = time()
         x = da.random.random(size=(2,N))*2 -1
@@ -30,7 +30,4 @@ def main():
 
 if __name__=='__main__':
     main()
-
-
-
 
